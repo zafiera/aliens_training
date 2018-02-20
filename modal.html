@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+        .modal {
+            display: none;
+            position: fixed;
+            left: 25%;
+            width: 50%;
+            border: 1px;
+            background-color: maroon;
+            color: white;
+        }
+
+        .close-button{
+            position: relative;
+            left:45%;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="modal" id="Modal">
+        <p>Lorem ipsum dolor sit amet, turpis dolor massa, curabitur consequat. Ipsum fermentum suspendisse pharetra justo id
+            enim, curabitur dignissim, senectus commodo ullamcorper ut pede id, vel commodo sed, est tellus interdum. Posuere
+            amet sed justo, vel cras hymenaeos sociis. Enim nec sit egestas, fringilla nulla est tortor vel eu, cursus habitant
+            nostra vivamus imperdiet ac sagittis, vestibulum posuere. Ornare ut dictum vivamus ut, viverra dicta vestibulum,
+            wisi et, ullamcorper quis ultrices suscipit. Arcu volutpat arcu congue mi, non sollicitudin duis wisi commodo
+            non egestas, a leo sed ipsum sagittis quisque. Leo eu dignissimos. Vel libero integer ligula lacus venenatis,
+            duis bibendum accumsan ante condimentum, urna facilisis.</p>
+        <br>
+        <p>Cras iaculis fusce. In ut justo imperdiet nec risus aliquip, ipsum minim venenatis, arcu fusce congue a mauris augue
+            vestibulum, nulla eleifend lectus fermentum, diam torquent facilisi augue sed. Sodales amet leo viverra, augue
+            eget sunt molestie, a porta tincidunt in vivamus augue justo. Tincidunt tellus tortor felis rutrum tincidunt,
+            nulla montes id, pellentesque neque gravida amet dolor vel, a vivamus odio urna massa sem. Sed massa imperdiet,
+            ut odio elit vivamus.</p>
+
+            <button id="closeModal" class="close-button">Close</button>
+    </div>
+
+    <button id="modalButton">Modal</button>
+
+</body>
+<script>
+
+var modal = document.getElementById('Modal');
+var button = document.getElementById('modalButton');
+var close = document.getElementById('closeModal')
+
+button.onclick= function(){
+    modal.style.display = 'block';
+}
+
+close.onclick= function(){
+    modal.style.display='none';
+}
+
+
+
+</script>
+
+</html>
