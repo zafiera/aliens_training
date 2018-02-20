@@ -28,35 +28,57 @@
     });
 
     function calc() {
+        var operant = '';
+        var operantPosition = -1;
         equation = equationInput.value;
 
         for (i = 0; i < equation.length; i++) {
-            operant = equation.charAt(i);
-            num1 = parseInt(equation.substring(0, i));
-            num2 = parseInt(equation.substring(i + 1, equation.length));
-
-            switch (operant){
+            var char = equation.charAt(i);
+            switch (char){
                 case '+':
-                sum.innerHTML = num1 + num2;
-                break;
-
                 case '-':
-                sum.innerHTML = num1 - num2;
-                break;
-
                 case '*':
-                sum.innerHTML = num1 * num2;
-                break;
-
                 case '/':
-                sum.innerHTML = num1 / num2;
+                    // got the value
+                    operant = char;
+                    operantPosition = i;
+                    break;
+                default:
+            }
+            if (operant !== '') {
                 break;
-
-                default: 
-                sum.innerHTML="Please select an operant for your equation.";
             }
         }
+        if (operant == '') {
+            console.error('No operant');
+            return;
+        }
 
+        var num1 = parseInt(equation.substring(0, operantPosition));
+        var num2 = parseInt(equation.substring(operantPosition + 1, equation.length));
+
+        if (isNaN(num1) || isNaN(num2)) {
+            console.error('Not enough numbers');
+            return;
+        }
+
+        console.log('operant',operant, '\nnum1', num1, '\nnum2',num2);
+        var total = 0;
+        switch (operant){
+            case '+':
+                total = num1 + num2;
+                break;
+            case '-':
+                total = num1 - num2;
+                break;
+            case '*':
+                total = num1 * num2;
+                break;
+            case '/':
+                total = num1 / num2;
+                break;
+        }
+        sum.innerHTML = total;
     }
 </script>
 
