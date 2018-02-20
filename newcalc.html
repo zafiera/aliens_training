@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+    </style>
+</head>
+
+<body>
+    <p><label> Calculator</label></p>
+
+    <input id="equationInput"></input>
+
+    <div id="sum"></div>
+</body>
+<script>
+    var equationInput = document.querySelector('#equationInput');
+
+    equationInput.addEventListener("keydown", function (e) {
+        if (e.keyCode === 13) {  //checks whether the pressed key is "Enter"
+            calc(equationInput.value);
+        }
+
+    });
+
+    function calc() {
+        equation = equationInput.value;
+
+        for (i = 0; i < equation.length; i++) {
+            operant = equation.charAt(i);
+            num1 = parseInt(equation.substring(0, i));
+            num2 = parseInt(equation.substring(i + 1, equation.length));
+
+            switch (operant){
+                case '+':
+                sum.innerHTML = num1 + num2;
+                break;
+
+                case '-':
+                sum.innerHTML = num1 - num2;
+                break;
+
+                case '*':
+                sum.innerHTML = num1 * num2;
+                break;
+
+                case '/':
+                sum.innerHTML = num1 / num2;
+                break;
+
+                default: 
+                sum.innerHTML="Please select an operant for your equation.";
+            }
+        }
+
+    }
+</script>
+
+</html>
