@@ -28,34 +28,36 @@
 
 <body>
     <div class="modal" id="Modal">
-        <p>Lorem ipsum dolor sit amet, turpis dolor massa, curabitur consequat. Ipsum fermentum suspendisse pharetra justo id
-            enim, curabitur dignissim, senectus commodo ullamcorper ut pede id, vel commodo sed, est tellus interdum. Posuere
-            amet sed justo, vel cras hymenaeos sociis. Enim nec sit egestas, fringilla nulla est tortor vel eu, cursus habitant
-            nostra vivamus imperdiet ac sagittis, vestibulum posuere. Ornare ut dictum vivamus ut, viverra dicta vestibulum,
-            wisi et, ullamcorper quis ultrices suscipit. Arcu volutpat arcu congue mi, non sollicitudin duis wisi commodo
-            non egestas, a leo sed ipsum sagittis quisque. Leo eu dignissimos. Vel libero integer ligula lacus venenatis,
-            duis bibendum accumsan ante condimentum, urna facilisis.</p>
-        <br>
-        <p>Cras iaculis fusce. In ut justo imperdiet nec risus aliquip, ipsum minim venenatis, arcu fusce congue a mauris augue
-            vestibulum, nulla eleifend lectus fermentum, diam torquent facilisi augue sed. Sodales amet leo viverra, augue
-            eget sunt molestie, a porta tincidunt in vivamus augue justo. Tincidunt tellus tortor felis rutrum tincidunt,
-            nulla montes id, pellentesque neque gravida amet dolor vel, a vivamus odio urna massa sem. Sed massa imperdiet,
-            ut odio elit vivamus.</p>
-
-            <button id="closeModal" class="close-button">Close</button>
+        <button id="closeModal" class="close-button">Close</button>
     </div>
 
-    <button id="modalButton">Modal</button>
+    <button id="modalButton1">Basic modal</button>
+    <button id="modalButton2">Help</button>
+    <button id="modalButton3">Confirm</button>
+    <button id="modalButton4">Html</button>
 
 </body>
 <script>
 
 var modal = document.getElementById('Modal');
-var button = document.getElementById('modalButton');
+// var button = document.getElementById('modalButton');
 var close = document.getElementById('closeModal')
 
-button.onclick= function(){
+function showModal(message) {
     modal.style.display = 'block';
+}
+
+modalButton1.onclick = function(){
+    showMadal('Hello');
+}
+modalButton2.onclick = function(){
+    showMadal('Here\'s some helpful hints');
+}
+modalButton3.onclick = function(){
+    showMadal('Are you sure?');
+}
+modalButton4.onclick = function(){
+    showMadal('<h1>Heading</h1><p>Another paragraph</p>');
 }
 
 close.onclick= function(){
