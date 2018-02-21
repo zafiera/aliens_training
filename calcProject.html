@@ -40,10 +40,11 @@
             outline: 0;
             background: transparent;
             border-bottom: 1px solid black;
-            left: 50%
+            left: 50%;
+            text-align:center;
         }
 
-        div {
+        .modal {
             display: none;
             position: relative;
             left: 25%;
@@ -78,6 +79,17 @@
             background-color: red;
             color: white;
         }
+
+        .answers{
+            position: relative;
+            background-color: lightgrey;
+            height: 200px;
+            left: 45%;
+            width: 30%;
+            display: none;
+            text-align: center;
+        }
+        
     </style>
 </head>
 
@@ -94,26 +106,100 @@
         <p></p>
         <input type="text" id="userInput" class="userInput">
         <p></p>
-        <button class="modalClose" id="close">close</button>
+        <button class="modalClose" id="close" onclick="closeModal()">close</button>
     </div>
 
     <p></p>
 
-    <input type="number" class="answer">
+    <input class="answer" id="sum">
+
+    <p></p>
+
+    <div class="answers" id="answersList"></div>
 
     <script>
         var modal = document.getElementById("modal");
         var open = document.getElementById("open");
         var close = document.getElementById("close");
+        var answers = document.getElementById("answersList");
 
         open.onclick = function () {
             modal.style.display = 'block';
         }
 
-        close.onclick = function () {
+        function closeModal() {
             modal.style.display = 'none';
         }
 
+        var userInput = document.querySelector('#userInput');
+
+        userInput.addEventListener("keydown", function (e) {
+            if (e.keyCode === 13) {  //checks whether the pressed key is "Enter"
+                calc(userInput.value);
+                closeModal();
+                value = document.querySelector('#sum').value ;
+                document.getElementById('userInput').value = value;
+                answersList.innerHTML +=value + "<br>" ;
+                answers.style.display = 'block';
+            }
+
+        });
+
+        function calc() {
+            var operant = '';
+            var operantPosition = -1;
+            equation = userInput.value;
+
+            for (i = 0; i < equation.length; i++) {
+                var char = equation.charAt(i);
+                switch (char) {
+                    case '+':
+                    case '-':
+                    case '*':
+                    case '/':
+                        // got the value
+                        operant = char;
+                        operantPosition = i;
+                        break;
+                    default:
+                }
+                if (operant !== '') {
+                    break;
+                }
+            }
+            if (operant == '') {
+                console.error('No operant');
+                return;
+            }
+
+            var num1 = parseInt(equation.substring(0, operantPosition));
+            var num2 = parseInt(equation.substring(operantPosition + 1, equation.length));
+
+            if (isNaN(num1) || isNaN(num2)) {
+                console.error('Not enough numbers');
+                return;
+            }
+
+            console.log('operant', operant, '\nnum1', num1, '\nnum2', num2);
+            var total = 0;
+            switch (operant) {
+                case '+':
+                    total = num1 + num2;
+                    break;
+                case '-':
+                    total = num1 - num2;
+                    break;
+                case '*':
+                    total = num1 * num2;
+                    break;
+                case '/':
+                    total = num1 / num2;
+                    break;
+            }
+
+            document.getElementById('sum').value = total;
+
+        }
     </script>
 </body>
 
