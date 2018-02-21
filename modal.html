@@ -14,8 +14,6 @@
             left: 25%;
             width: 50%;
             border: 1px;
-            background-color: maroon;
-            color: white;
         }
 
         .close-button{
@@ -28,6 +26,8 @@
 
 <body>
     <div class="modal" id="Modal">
+
+        <p id="modal-content"></p>
         <button id="closeModal" class="close-button">Close</button>
     </div>
 
@@ -35,35 +35,50 @@
     <button id="modalButton2">Help</button>
     <button id="modalButton3">Confirm</button>
     <button id="modalButton4">Html</button>
+    <button id="modalButton5">Login</button>
 
 </body>
 <script>
 
 var modal = document.getElementById('Modal');
-// var button = document.getElementById('modalButton');
 var close = document.getElementById('closeModal')
 
-function showModal(message) {
-    modal.style.display = 'block';
-}
-
 modalButton1.onclick = function(){
-    showMadal('Hello');
+    showModal("Thank you for signing up :)!");
+    modal.style.background='green';
+    modal.style.color="black";
 }
 modalButton2.onclick = function(){
-    showMadal('Here\'s some helpful hints');
+    showModal('Here\'s some helpful hints');
+    modal.style.background='yellow';
+    modal.style.color="black";
 }
 modalButton3.onclick = function(){
-    showMadal('Are you sure?');
+    showModal('Are you sure?');
+    modal.style.background='orange';
+    modal.style.color="black";
 }
 modalButton4.onclick = function(){
-    showMadal('<h1>Heading</h1><p>Another paragraph</p>');
+    showModal('<h1>Heading</h1><p>Another paragraph</p>');
+    modal.style.background='maroon';
+    modal.style.color='white';
+}
+modalButton5.onclick = function(){
+    showModal(' Username: <input></input> Password: <input></input>');
+    modal.style.background='black';
+    modal.style.color='white';
 }
 
 close.onclick= function(){
     modal.style.display='none';
 }
 
+
+function showModal(message) {
+    
+    modal.style.display = 'block';
+    document.getElementById('modal-content').innerHTML = message;
+}
 
 
 </script>
