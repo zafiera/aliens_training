@@ -22,6 +22,14 @@ function newGame () {
   document.getElementById('current-1').textContent = '0'
   document.getElementById('name-0').textContent = 'Player 1'
   document.getElementById('name-1').textContent = 'Player 2'
+
+  document.getElementById("roll").disabled = false;
+  document.getElementById("hold").disabled = false;
+  var x = document.getElementById("roll").disabled;
+  console.log(x)
+
+  var removeToggle = document.querySelector('.player-' + activePlayer+1 + '-panel').classList.toggle('active');
+    removeToggle.style.display.block;
 }
 
 function rollDice () {
@@ -86,7 +94,5 @@ function endGame(){
     winner.innerHTML = "WINNER";
     document.getElementById("roll").disabled = true;
     document.getElementById("hold").disabled = true;
-    var removeToggle = document.querySelector('.player-' + activePlayer+1 + '-panel').classList.toggle('active');
-    removeToggle.style.display.none;
     
 }
