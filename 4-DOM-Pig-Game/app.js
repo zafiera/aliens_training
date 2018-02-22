@@ -58,7 +58,9 @@ function changePlayer () {
   document.querySelector('.player-0-panel').classList.toggle('active')
 
 
-    document.querySelector('#current-' + activePlayer).innerHTML = '0'
+    document.querySelector('#current-0').innerHTML = '0';
+    document.querySelector('#current-1').innerHTML = '0';
+
     console.log('player' + activePlayer)
 
 }
