@@ -9,7 +9,9 @@ GAME RULES:
 */
 
 var determinePlayer = 0;
-var activePlayer = 0
+var activePlayer = 0;
+newGame();
+
 
 function newGame () {
   document.querySelector('.dice').style.display = 'none'
@@ -70,5 +72,21 @@ function hold () {
   var getScore = parseInt(document.getElementById('current-' + activePlayer).textContent)
   var score = document.getElementById('score-' + activePlayer)
   score.innerHTML = getScore+getSavedScore;
-  changePlayer()
+
+  var checkScore = parseInt(document.getElementById('score-' + activePlayer).textContent)
+  if(checkScore>=20){
+      endGame();
+  }
+
+  changePlayer();
+}
+
+function endGame(){
+    var winner = document.getElementById('name-'+activePlayer);
+    winner.innerHTML = "WINNER";
+    document.getElementById("roll").disabled = true;
+    document.getElementById("hold").disabled = true;
+    var removeToggle = document.querySelector('.player-' + activePlayer+1 + '-panel').classList.toggle('active');
+    removeToggle.style.display.none;
+    
 }
