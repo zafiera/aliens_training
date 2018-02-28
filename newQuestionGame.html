@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<style>
+    .divclass {
+        height: 1000px;
+        padding: 0;
+        margin: 0;
+        background: white;
+        /* fallback for old browsers */
+        background: -webkit-linear-gradient(to right, #004e92, #000428);
+        /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(to right, #004e92, #000428);
+        /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        font-family: sans-serif;
+        text-align: center;
+
+    }
+
+    button {
+        background-color: #004e927c;
+        border: none;
+        color: white;
+        padding: 5px 10px;
+        cursor: pointer;
+        font-size: 18px;
+    }
+
+    button:hover {
+        background-color: black;
+    }
+
+    .modalButton {
+        top: 100px;
+        position: relative;
+    }
+
+    .modal {
+        position: absolute;
+        width: 60%;
+        border: 1px solid white;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1;
+        text-align: center;
+        display: none;
+        opacity: 0.8;
+        color: white;
+    }
+
+    .modal-content {
+        padding: 50px;
+    }
+
+    .modal-heading {
+        font-size: 20px;
+        background: #efefef;
+        color: #333;
+        margin: 0;
+        padding: 20px;
+        font-weight: 100;
+    }
+
+    .modalClose {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+    }
+
+    #modal-done{
+        display: none;
+    }
+</style>
+
+<body>
+    <div class="divclass">
+
+        <div class="modal" id="modal">
+            <h3 class="modal-heading" id="Question"></h3>
+            <div class="modal-content">
+                <div id="Answers"></div>
+                <input type="number" id="userAnswer" class="userInput">
+                <button class="modalClose" id="close" onclick="closeModal()">Close</button>
+            </div>
+        </div>
+
+        <button class="modalButton" id="open" onclick="openModal()"> Start </button>
+
+        <div class="modal" id = "done"></div>
+        </div>
+    </div>
+</body>
+
+<script>
+
+    var modal = document.getElementById("modal");
+    var open = document.getElementById("open");
+    var close = document.getElementById("close");
+    var gameDone = document.getElementById('done');
+
+
+    function openModal() {
+        modal.style.display = 'block';
+        nextQuestion();
+    }
+
+    function closeModal() {
+        modal.style.display = 'none';
+    }
+
+
+    var randomArr = []
+    var points = 0;
+    var incrementIndex = 0;
+
+    function Question(question, answers, correct) {
+        this.question = question;
+        this.answers = answers;
+        this.correct = correct;
+    }
+
+    var question1 = new Question('what is 12*12?',
+        [112, 141, 144, 121],
+        2
+    );
+
+    var question2 = new Question('In rhyming slang what is meant by dickory dock?',
+        ['ticking', 'clock', 'harbor', 'dock'],
+        1
+    );
+
+    var question3 = new Question('Who was the first man into space?',
+        ['Yuri Gagarin', ' Michael Collins', 'Edwin "Buzz" Aldrin', 'Neil Armstrong'],
+        0
+    );
+
+    var question4 = new Question('Which car company makes the Celica?',
+        ['BMW', "Toyota", 'Honda', 'Mercedes'],
+        1
+    );
+
+    var question5 = new Question('In eye donation which part of donor’s eye is utilized?',
+        ['retina', 'lens', 'cornea', 'ulcer'],
+        2
+    );
+    var print = [question1, question2, question3, question4, question5];
+
+    Question.prototype.displayQuestion = function () {
+        arr = [];
+        questionString = this.question;
+
+        for (var i = 0; i < this.answers.length; i++) {
+            arr.push(i + '.' + this.answers[i]);
+
+        }
+
+    }
+
+    Question.prototype.checkAnswer = function (ans) {
+        if (userAnswer == this.correct) {
+            console.log('correct');
+            points++;
+        }
+        else {
+            console.log('incorrect answer');
+        }
+    }
+
+    function nextQuestion() {
+        print[randomArr[incrementIndex]].displayQuestion();
+
+        document.getElementById('Question').innerHTML = questionString;
+        document.getElementById('Answers').innerHTML = arr.join('<br>');
+        document.getElementById('userAnswer').value = '';
+
+    }
+
+    function setupQuestions() {
+
+        var indexArr = [0, 1, 2, 3, 4],
+            j = 0;
+
+        while (indexArr.length) {
+            j = Math.floor(Math.random() * indexArr.length);
+            randomArr.push(indexArr.splice(j, 1));
+        }
+        console.log(randomArr)
+    }
+
+    setupQuestions();
+
+    function finished(){
+        modal.style.display= 'none';
+        done.style.display = 'block';
+    }
+
+    var run = document.querySelector('#userAnswer');
+    run.addEventListener("keydown", function (e) {
+        if (e.keyCode === 13) {
+
+            userAnswer = document.getElementById('userAnswer').value;
+
+            if (userAnswer !== 'stop' && incrementIndex < 4) {
+                print[randomArr[incrementIndex]].checkAnswer(parseInt(userAnswer));
+                incrementIndex++;
+                nextQuestion();
+
+            }
+            else if (incrementIndex == 4) {
+                finished();
+                document.getElementById('done').innerHTML ="You've scored " + points + " point(s)" + "\n you complete the game."
+                
+            }
+            else {
+                finished();
+                document.getElementById('done').innerHTML = "You've scored " + points + " point(s)"  +"\n You lost";
+            }
+        }
+    });
+
+
+</script>
+
+</html>
