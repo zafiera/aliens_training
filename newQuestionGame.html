@@ -107,22 +107,15 @@
     }
     Question.prototype.displayQuestion = function () {
         arr = [];
-        questionString = this.question;
-
         for (var i = 0; i < this.answers.length; i++) {
             arr.push(i + '.' + this.answers[i]);
 
         }
+        return this.question;
     }
 
     Question.prototype.checkAnswer = function (ans) {
-        if (userAnswer == this.correct) {
-            console.log('correct');
-            points++;
-        }
-        else {
-            console.log('incorrect answer');
-        }
+        return (userAnswer === this.correct);
     }
 </script>
 
@@ -136,6 +129,7 @@
     var points = 0;
     var questionIndex = 0;
     var questions = [];
+    // var arr = [];
 
     (function init() {
         questions = [
@@ -182,7 +176,10 @@
                 userAnswer = document.getElementById('userAnswer').value;
 
                 if (userAnswer !== 'stop' && questionIndex < 4) {
-                    questions[questionIndex].checkAnswer(parseInt(userAnswer));
+                    var isCorrect = questions[questionIndex].checkAnswer(parseInt(userAnswer));
+                    if (isCorrect) {
+                        points++;
+                    }
                     questionIndex++;
                     nextQuestion();
 
@@ -213,7 +210,7 @@
     }
 
     function nextQuestion() {
-        questions[questionIndex].displayQuestion();
+        questionString = questions[questionIndex].displayQuestion();
 
         document.getElementById('Question').innerHTML = questionString;
         document.getElementById('Answers').innerHTML = arr.join('<br>');
