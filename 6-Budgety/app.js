@@ -194,7 +194,7 @@ var UIController = (function() {
 
     decimals = numSplit[1];
 
-    return (type === EXPENSE ? "-" : "+") + " " + integer + "." + decimals;
+    return (type === EXPENSES ? "-" : "+") + " " + integer + "." + decimals;
   };  
   
   return {
@@ -282,11 +282,11 @@ var UIController = (function() {
       },
   
       displayBudget: function(obj) {
-        var type = obj.budget > 0 ? INCOME : EXPENSE;
+        var type = obj.budget > 0 ? INCOME : EXPENSES;
   
         this.formatField(DOMstrings.budgetLabel, obj.budget, type);
         this.formatField(DOMstrings.incomeLabel, obj.totalInc, INCOME);
-        this.formatField(DOMstrings.expensesLabel, obj.totalExp, EXPENSE);
+        this.formatField(DOMstrings.expensesLabel, obj.totalExp, EXPENSES);
   
         if (obj.percentage > 0) {
           document.querySelector(DOMstrings.percentageLabel).textContent =
