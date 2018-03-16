@@ -20,7 +20,7 @@ class App extends Component {
       `http://api.openweathermap.org/data/2.5/weather?APPID=${api_key}&q=${city}`
     ).then(response => response.json())
     .then(json => {
-      this.setState({description: json.weather[0].des})
+      this.setState({description: json.weather[0].description})
     });
   }
   render() {
@@ -28,4 +28,4 @@ class App extends Component {
   }
 }
 
-ReactDOM.render(<App />, document.getElementById("root"));
+ReactDOM.render(<App/>, document.getElementById("root"));
