@@ -4,6 +4,10 @@
   "main": "index.js",
   "author": "Zafiera Davids",
   "license": "MIT",
+  "scripts": {
+    "start": "live-server public",
+    "transpile": "babel src/** --out-file=public/scripts/app.js --presets=env,react" 
+  },
   "dependencies": {
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1"
