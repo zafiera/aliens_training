@@ -6,10 +6,11 @@
   "license": "MIT",
   "scripts": {
     "start": "live-server public",
-    "transpile": "babel src/** --out-file=public/scripts/app.js --presets=env,react" 
+    "transpile": "babel src/** --out-file=public/scripts/app.js"
   },
   "dependencies": {
-    "babel-preset-env": "^1.6.1",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-preset-es2017": "^6.24.1",
     "babel-preset-react": "^6.24.1"
   }
 }
