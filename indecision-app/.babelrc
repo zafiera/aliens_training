@@ -1,4 +1,12 @@
 {
-    "presets": ["babel-preset-es2017", "react"],
-    "plugins": ["transform-class-properties"]
-  }
+  "presets": [
+    ["es2015"],
+    "stage-2",
+    "react",
+    "react-boilerplate"
+  ],
+
+  "plugins": [
+    "react-hot-loader/babel"
+  ]
+}
