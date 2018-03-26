@@ -1,13 +1,20 @@
 import React, { Component } from 'react';
 
 export class AddOption extends Component {
-  handleAddOption(e) {
+  handleAddOption = (e) => {
     e.preventDefault();
 
     const option = e.target.elements.option.value.trim();
 
     if (option) {
-      alert(option);
+      app.options.push(option);
+      e.target.elements.option.value='';
+      render();
+    }
+
+    const onRemoveAll= () =>{
+      app.options = [];
+      render();
     }
   }
   render() {
