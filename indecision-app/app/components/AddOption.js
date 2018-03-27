@@ -1,15 +1,16 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
 export class AddOption extends Component {
-  handleAddOption = (e) => {
+  handleAddOption = e => {
     e.preventDefault();
 
     const option = e.target.elements.option.value.trim();
 
-    if(option){
-      this.props.handleAddOption(option)
+    if (option) {
+      this.props.handleAddOption(option);
+      e.target.elements.option.value = "";
     }
-  }
+  };
   render() {
     return (
       <div>

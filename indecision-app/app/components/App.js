@@ -11,15 +11,8 @@ class IndecisionApp extends React.Component {
     super(props);
 
     this.state = {
-      title: "Indecision",
-      options: ["Thing one", "thing two", "thing four"]
+      options: []
     };
-
-    setTimeout(() => {
-      this.setState({
-        title: 'X',
-      });
-    }, 2000);
   }
 
   //turn into arrow function to access this
@@ -42,16 +35,9 @@ class IndecisionApp extends React.Component {
     this.setState({
       options: this.state.options.concat(option),
     });
-
-    // this.setState((prevState) => {
-    //   return {
-    //     options: prevState.options.concat([option])
-    //   };
-    // });
   }
 
   render() {
-    console.log('render app');
     const subtitle = "Put your life in the hands of a computer";
 
     return (
