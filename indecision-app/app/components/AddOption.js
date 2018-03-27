@@ -6,15 +6,8 @@ export class AddOption extends Component {
 
     const option = e.target.elements.option.value.trim();
 
-    if (option) {
-      app.options.push(option);
-      e.target.elements.option.value='';
-      render();
-    }
-
-    const onRemoveAll= () =>{
-      app.options = [];
-      render();
+    if(option){
+      this.props.handleAddOption(option)
     }
   }
   render() {
