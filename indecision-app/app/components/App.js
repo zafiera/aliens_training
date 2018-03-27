@@ -1,3 +1,4 @@
+'use strict';
 import React from "react";
 import { Header } from "./Header";
 import { Action } from "./Action";
@@ -6,17 +7,29 @@ import { AddOption } from "./AddOption";
 import img from "../assets/images/react_logo_512x512.png";
 
 class IndecisionApp extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      title: "Indecision",
+      options: ["Thing one", "thing two", "thing four"]
+    };
+
+    setTimeout(() => {
+      this.setState({
+        title: 'X',
+      });
+    }, 2000);
+  }
+
   //turn into arrow function to access this
   handleDeleteOptions = () => {
-    // this.setState(() => {
-    //   return {
-    //     options:[]
-    //   }
-    // })
-    this.state = {
+
+    this.setState({
       options: []
-    };
-    console.log(this.state.options);
+    }, () => {
+      console.log(this.state.options);
+    });
   };
 
   handlePick = () => {
@@ -26,23 +39,24 @@ class IndecisionApp extends React.Component {
   };
 
   handleAddOption = (option) => {
-    this.setState((prevState) => {
-      return {
-        options: prevState.options.concat([option])
-      };
+    this.setState({
+      options: this.state.options.concat(option),
     });
+
+    // this.setState((prevState) => {
+    //   return {
+    //     options: prevState.options.concat([option])
+    //   };
+    // });
   }
 
   render() {
-    const title = "Indecision";
+    console.log('render app');
     const subtitle = "Put your life in the hands of a computer";
-    this.state = {
-      options: ["Thing one", "thing two", "thing four"]
-    };
 
     return (
       <div>
-        <Header title={title} subtitle={subtitle} />
+        <Header title={this.state.title} subtitle={subtitle} />
         <Action
           hasOptions={this.state.options.length > 0}
           handlePick={this.handlePick}
