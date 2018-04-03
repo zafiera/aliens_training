@@ -1,5 +1,9 @@
-$color: #262828;
-
-body {
-  color: $color;
-}
+@import './base/settings';
+@import './base/base';
+@import './components/header';
+@import './components/container.scss';
+@import './components/button.scss';
+@import './components/widget.scss';
+@import './components/option.scss';
+@import './components/add-option.scss';
+@import './components/modal.scss';
