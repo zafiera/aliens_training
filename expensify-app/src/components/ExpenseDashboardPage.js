@@ -6,7 +6,8 @@ export class ExpenseDashboardPage extends Component{
     render(){
         return(
     <div>
-      <ExpenseList/>
+        <ExpenseListFilters/>
+        <ExpenseList/>
     </div>
         )
     }
