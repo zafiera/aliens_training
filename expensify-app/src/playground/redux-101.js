@@ -1,279 +1,67 @@
-import { createStore, combineReducers } from "redux";
-import uuid from "uuid";
-import { EditExpensePage } from "../components/EditExpensePage";
+import { createStore } from 'redux';
 
-// const incrementCount = ({
-//   incrementBy = 1
-// } = {}) => ({
-//   type: "INCREMENT",
-//   incrementBy
-// });
+// Action generators - functions that return action objects
 
-// const decrementCount = ({
-//   decrementBy = 1
-// } = {}) => ({
-//   type: "DECREMENT",
-//   decrementBy
-// })
-
-// const resetCount = () => ({
-//   type: "RESET"
-// })
-
-// const setCount = ({count}) => ({
-//   type: "SET",
-//   count
-// })
-
-// const countReducer = (state = {
-//   count: 0
-// }, action) => {
-//   switch (action.type) {
-//     case "INCREMENT":
-//       const incrementBy =
-//         typeof action.incrementBy === "number" ? action.incrementBy : 1;
-//       return {
-//         count: state.count + incrementBy
-//       };
-//     case "DECREMENT":
-//       const decrementBy =
-//         typeof action.decrementBy === "number" ? action.decrementBy : 1;
-//       return {
-//         count: state.count - decrementBy
-//       };
-//     case "RESET":
-//       return {
-//         count: 0
-//       };
-//     case "SET":
-//       return {
-//         count: action.count
-//       };
-//     default:
-//       return state;
-//   }
-// }
-
-// const store = createStore(countReducer);
-
-// const unsubscribe = store.subscribe(() => {
-//   console.log(store.getState());
-// });
-
-// store.dispatch(incrementCount({incrementBy: 5}));
-
-// store.dispatch(incrementCount());
-
-// store.dispatch(resetCount());
-
-// store.dispatch(decrementCount());
-
-// store.dispatch(decrementCount({decrementBy: 10}));
-
-// store.dispatch(setCount({count: 101}));
-
-///////////////////////////////////////////////////////////////////////////////////////////
-
-// ADD_EXPENSE
-const addExpense = ({
-  description = "",
-  note = "",
-  amount = 0,
-  createdAt = 0
-} = {}) => ({
-  type: "ADD_EXPENSE",
-  expense: {
-    id: uuid(),
-    description,
-    note,
-    amount,
-    createdAt
-  }
+const incrementCount = ({ incrementBy = 1 } = {}) => ({
+  type: 'INCREMENT',
+  incrementBy
 });
 
-// REMOVE_EXPENSE
-const removeExpense = ({ id } = {}) => ({
-  type: "REMOVE_EXPENSE",
-  id
+const decrementCount = ({ decrementBy = 1 } = {}) => ({
+  type: 'DECREMENT',
+  decrementBy
 });
 
-// EDIT_EXPENSE
-const editExpense = (id, updates) => ({
-  type: "EDIT_EXPENSE",
-  id,
-  updates
+const setCount = ({ count }) => ({
+  type: 'SET',
+  count
 });
 
-// SET_TEXT_FILTER
-const setTextFilter = (text = "") => ({
-  type: "SET_TEXT_FILTER",
-  text
+const resetCount = () => ({
+  type: 'RESET'
 });
 
-// SORT_BY_DATE
-const sortByDate = () => ({
-  type: "SORT_BY_DATE"
-});
+// Reducers
+// 1. Reducers are pure functions
+// 2. Never change state or actiton
 
-// SORT_BY_AMOUNT
-const sortByAmount = () => ({
-  type: "SORT_BY_AMOUNT"
-});
-
-const setStartDate = startDate => ({
-  type: "SET_START_DATE",
-  startDate
-});
-
-const setEndDate = endDate => ({
-  type: "SET_END_DATE",
-  endDate
-});
-
-
-// Expenses Reducer
-
-const expensesReducerDefaultState = [];
-
-const expensesReducer = (state = expensesReducerDefaultState, action) => {
+const countReducer = (state = { count: 0 }, action) => {
   switch (action.type) {
-    case "ADD_EXPENSE":
-      return [...state, action.expense];
-    case "REMOVE_EXPENSE":
-      return state.filter(({ id }) => id !== action.id);
-    case "EDIT_EXPENSE":
-      return state.map(expense => {
-        if (expense.id === action.id) {
-          return {
-            ...expense,
-            ...action.updates
-          };
-        } else {
-          return expense;
-        }
-      });
-    default:
-      return state;
-  }
-};
-
-// Filters Reducer
-
-const filtersReducerDefaultState = {
-  text: "",
-  sortBy: "date",
-  startDate: undefined,
-  endDate: undefined
-};
-
-const filtersReducer = (state = filtersReducerDefaultState, action) => {
-  switch (action.type) {
-    case "SET_TEXT_FILTER":
+    case 'INCREMENT':
       return {
-        ...state,
-        text: action.text
+        count: state.count + action.incrementBy
       };
-
-    case "SORT_BY_DATE":
+    case 'DECREMENT':
       return {
-        ...state,
-        sortBy: "date"
+        count: state.count - action.decrementBy
       };
-
-    case "SORT_BY_AMOUNT":
+    case 'SET':
       return {
-        ...state,
-        sortBy: "amount"
+        count: action.count
       };
-
-    case "SET_START_DATE":
+    case 'RESET':
       return {
-        ...state,
-        startDate: action.startDate
-      };
-
-    case "SET_END_DATE":
-      return {
-        ...state,
-        endDate: action.endDate
+        count: 0
       };
     default:
       return state;
   }
 };
 
-//Get visible expensess
-const getVisibleExpenses = (expenses, { text, sortBy, startDate, endDate }) => {
-  return expenses
-    .filter(expense => {
-      const startDateMatch =
-        typeof startDate !== "number" || expense.createdAt >= startDate;
-      const endDateMatch =
-        typeof endDate !== "number" || expense.createdAt <= endDate;
-      const textMatch = expense.description
-        .toLowerCase()
-        .includes(text.toLowerCase());
+const store = createStore(countReducer);
 
-      return startDateMatch && endDateMatch && textMatch;
-    })
-    .sort((a, b) => {
-      if (sortBy === "date") {
-        return a.createdAt < b.createdAt ? 1 : -1;
-      }
-      if(sortBy=== "amount"){
-        return a.amount< b.amount ? 1 : -1;
-      }
-    });
-};
-// Store creation
-
-const store = createStore(
-  combineReducers({
-    expenses: expensesReducer,
-    filters: filtersReducer
-  })
-);
-
-store.subscribe(() => {
-  const state = store.getState();
-  const visibleExpenses = getVisibleExpenses(state.expenses, state.filters);
-  console.log(visibleExpenses);
+const unsubscribe = store.subscribe(() => {
+  console.log(store.getState());
 });
 
-const expenseOne = store.dispatch(
-  addExpense({ description: "Rent", amount: 100, createdAt: -21000 })
-);
-const expenseTwo = store.dispatch(
-  addExpense({ description: "Coffee", amount: 300, createdAt: -1000 })
-);
+store.dispatch(incrementCount({ incrementBy: 5 }))
 
-// store.dispatch(removeExpense({ id: expenseOne.expense.id }));
-// store.dispatch(editExpense(expenseTwo.expense.id, { amount: 500 }));
+store.dispatch(incrementCount());
 
-// store.dispatch(setTextFilter("rent"));
-// store.dispatch(setTextFilter());
+store.dispatch(resetCount());
 
-// store.dispatch(sortByAmount());
-// store.dispatch(sortByDate());
+store.dispatch(decrementCount());
 
-// store.dispatch(setStartDate(2000));
-// store.dispatch(setStartDate());
-// store.dispatch(setEndDate(1250));
+store.dispatch(decrementCount({ decrementBy: 10 }));
 
-const demoState = {
-  expenses: [
-    {
-      id: "poijasdfhwer",
-      description: "January Rent",
-      note: "This was the final payment for that address",
-      amount: 54500,
-      createdAt: 0
-    }
-  ],
-  filters: {
-    text: "rent",
-    sortBy: "amount", // date or amount
-    startDate: undefined,
-    endDate: undefined
-  }
-};
+store.dispatch(setCount({ count: -100 }));
